@@ -3,40 +3,40 @@ using Siemens.Internship2026.GradeBook.Models;
 
 namespace Siemens.Internship2026.GradeBook.Repositories;
 
-public sealed class ItemRepository : IItemRepository
+public sealed class GradeRepository : IGradeRepository
 {
-    private readonly List<Item> _items = new();
+    private readonly List<Grade> _items = new();
     private int _nextId = 1;
 
-    public ItemRepository()
+    public GradeRepository()
     {
-        var i1 = new Item(10);
-        var i2 = new Item(20);
+        var i1 = new Grade(10);
+        var i2 = new Grade(20);
 
         AddAsync(i1);
         AddAsync(i2);
     }
 
-    public Task<Item?> GetByIdAsync(int id)
+    public Task<Grade?> GetByIdAsync(int id)
     {
         var item = _items.FirstOrDefault(i => i.Id == id && i.IsActive);
         return Task.FromResult(item);
     }
 
-    public Task<IEnumerable<Item>> GetAllAsync()
+    public Task<IEnumerable<Grade>> GetAllAsync()
     {
         var items = _items.Where(i => i.IsActive).AsEnumerable();
         return Task.FromResult(items);
     }
 
-    public Task AddAsync(Item item)
+    public Task AddAsync(Grade item)
     {
         item.Id = _nextId++;
         _items.Add(item);
         return Task.CompletedTask;
     }
 
-    private Item? FindItemById(int id)
+    private Grade? FindItemById(int id)
     {
         return _items.FirstOrDefault(i => i.Id == id);
     }
@@ -49,7 +49,7 @@ public sealed class ItemRepository : IItemRepository
         return Task.FromResult(true);
     }
 
-    public Task<bool> UpdateAsync(int id, Item item)
+    public Task<bool> UpdateAsync(int id, Grade item)
     {
         var foundItem = FindItemById(id);
         if (foundItem == null) return Task.FromResult(false);

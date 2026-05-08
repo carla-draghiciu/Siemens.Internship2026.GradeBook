@@ -2,10 +2,10 @@
 
 namespace Siemens.Internship2026.GradeBook.Interfaces
 {
-    public interface IStatisticsService
+    public interface IGradeStatisticsService
     {
-        Task<List<Item>> GetAllAsList();
-        Task<Item?> GetById(int id);
+        Task<List<Grade>> GetAllAsList();
+        Task<Grade?> GetById(int id);
         Task<object> ComputeStatistics();
     }
 }

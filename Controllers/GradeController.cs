@@ -5,12 +5,12 @@ namespace Siemens.Internship2026.GradeBook.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ItemController : ControllerBase
+public class GradeController : ControllerBase
 {
-    private readonly IStatisticsService _statisticsService;
+    private readonly IGradeStatisticsService _statisticsService;
     private readonly ILoggerService _loggerService;
 
-    public ItemController(IStatisticsService itemService, ILoggerService loggerService)
+    public GradeController(IGradeStatisticsService itemService, ILoggerService loggerService)
     {
         _statisticsService = itemService;
         _loggerService = loggerService;
