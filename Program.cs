@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IGradeRepository, GradeRepository>();
 builder.Services.AddScoped<IGradeReader>(sp => sp.GetRequiredService<IGradeRepository>());
 builder.Services.AddScoped<IGradeStatisticsService, GradeStatisticsService>();
+builder.Services.AddScoped<IGradeService, GradeService>();
 builder.Services.AddScoped<ILoggerService, ConsoleLoggerService>();
 
 var app = builder.Build();

@@ -7,11 +7,13 @@ namespace Siemens.Internship2026.GradeBook.Controllers;
 [Route("api/[controller]")]
 public class GradeController : ControllerBase
 {
+    private readonly IGradeService _gradeService;
     private readonly IGradeStatisticsService _gradeStatisticsService;
     private readonly ILoggerService _loggerService;
 
-    public GradeController(IGradeStatisticsService gradeStatisticsService, ILoggerService loggerService)
+    public GradeController(IGradeService gradeService, IGradeStatisticsService gradeStatisticsService, ILoggerService loggerService)
     {
+        _gradeService = gradeService;
         _gradeStatisticsService = gradeStatisticsService;
         _loggerService = loggerService;
     }
@@ -21,7 +23,7 @@ public class GradeController : ControllerBase
     {
         _loggerService.Log("GET api/item called");
 
-        var gradesList = await _gradeStatisticsService.GetAllGradesAsList();
+        var gradesList = await _gradeService.GetAllGradesAsList();
         var statistics = await _gradeStatisticsService.ComputeGradeStatistics();
 
         //Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");
@@ -44,7 +46,7 @@ public class GradeController : ControllerBase
             return BadRequest("Id must be a positive integer.");
         }
 
-        var returnedGrade = await _gradeStatisticsService.GetGradeById(id);
+        var returnedGrade = await _gradeService.GetGradeById(id);
         if (returnedGrade == null)
         {
             _loggerService.Log($"Item {id} not found");
