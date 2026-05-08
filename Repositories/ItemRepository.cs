@@ -3,10 +3,10 @@ using Siemens.Internship2026.GradeBook.Models;
 
 namespace Siemens.Internship2026.GradeBook.Repositories;
 
-public class ItemRepository : IItemRepository
+public sealed class ItemRepository : IItemRepository
 {
-    protected readonly List<Item> _items = new();
-    protected int _nextId = 1;
+    private readonly List<Item> _items = new();
+    private int _nextId = 1;
 
     public Task<Item?> GetByIdAsync(int id)
     {
