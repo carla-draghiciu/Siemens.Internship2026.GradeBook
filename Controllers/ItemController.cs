@@ -9,17 +9,19 @@ public class ItemController : ControllerBase
 {
     private readonly IItemReader _reader;
     private readonly IItemService _itemService;
+    private readonly ILoggerService _loggerService;
 
-    public ItemController(IItemReader reader, IItemService itemService)
+    public ItemController(IItemReader reader, IItemService itemService, ILoggerService loggerService)
     {
         _reader = reader;
         _itemService = itemService;
+        _loggerService = loggerService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        Console.WriteLine($"[LOG] {DateTime.UtcNow}: GET api/item called");
+        _loggerService.Log("GET api/item called");
 
         var items = await _reader.GetAllAsync();
         var itemList = items.ToList();
@@ -38,18 +40,18 @@ public class ItemController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        Console.WriteLine($"[LOG] {DateTime.UtcNow}: GET api/item/{id} called");
+        _loggerService.Log($"GET api/item/{id} called");
 
         if (id <= 0)
         {
-            Console.WriteLine($"[LOG] Invalid id: {id}");
+            _loggerService.Log($"Invalid id: {id}");
             return BadRequest("Id must be a positive integer.");
         }
 
         var item = await _reader.GetByIdAsync(id);
         if (item == null)
         {
-            Console.WriteLine($"[LOG] Item {id} not found");
+            _loggerService.Log($"Item {id} not found");
             return NotFound($"Item with Id {id} was not found.");
         }
 
