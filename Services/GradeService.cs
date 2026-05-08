@@ -33,6 +33,7 @@ namespace Siemens.Internship2026.GradeBook.Services
 
             return allGrades
                 .Where(grade => grade.IsActive && grade.IsPassing())
+                .OrderByDescending(grade => grade.Value)
                 .Take(n)
                 .ToList();
         }
