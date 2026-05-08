@@ -12,19 +12,19 @@ namespace Siemens.Internship2026.GradeBook.Services
             _gradeReader = gradeReader;
         }
 
-        public async Task<List<Grade>> GetAllAsList()
+        public async Task<List<Grade>> GetAllGradesAsList()
         {
-            return (await this._gradeReader.GetAllAsync()).ToList();
+            return (await this._gradeReader.GetAllGradesAsync()).ToList();
         }
 
-        public async Task<Grade?> GetById(int searchedGradeId)
+        public async Task<Grade?> GetGradeById(int searchedGradeId)
         {
-            return await _gradeReader.GetByIdAsync(searchedGradeId);
+            return await _gradeReader.GetGradeByIdAsync(searchedGradeId);
         }
 
-        public async Task<object> ComputeStatistics()
+        public async Task<object> ComputeGradeStatistics()
         {
-            var allGrades = await this.GetAllAsList();
+            var allGrades = await this.GetAllGradesAsList();
 
             return new
             {

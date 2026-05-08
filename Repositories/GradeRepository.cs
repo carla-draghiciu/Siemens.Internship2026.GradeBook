@@ -13,23 +13,23 @@ public sealed class GradeRepository : IGradeRepository
         var i1 = new Grade(10);
         var i2 = new Grade(20);
 
-        AddAsync(i1);
-        AddAsync(i2);
+        AddGradeAsync(i1);
+        AddGradeAsync(i2);
     }
 
-    public Task<Grade?> GetByIdAsync(int searchedGradeId)
+    public Task<Grade?> GetGradeByIdAsync(int searchedGradeId)
     {
         var foundGrade = _grades.FirstOrDefault(grade => grade.Id == searchedGradeId && grade.IsActive);
         return Task.FromResult(foundGrade);
     }
 
-    public Task<IEnumerable<Grade>> GetAllAsync()
+    public Task<IEnumerable<Grade>> GetAllGradesAsync()
     {
         var allActiveGrades = _grades.Where(grade => grade.IsActive).AsEnumerable();
         return Task.FromResult(allActiveGrades);
     }
 
-    public Task AddAsync(Grade gradeToBeAdded)
+    public Task AddGradeAsync(Grade gradeToBeAdded)
     {
         gradeToBeAdded.Id = _nextGradeId++;
         _grades.Add(gradeToBeAdded);
@@ -41,7 +41,7 @@ public sealed class GradeRepository : IGradeRepository
         return _grades.FirstOrDefault(grade => grade.Id == searchedId);
     }
 
-    public Task<bool> DeleteAsync(int idOfGradeToDelete)
+    public Task<bool> DeleteGradeAsync(int idOfGradeToDelete)
     {
         var foundGrade = FindItemById(idOfGradeToDelete);
         if (foundGrade == null)
@@ -53,7 +53,7 @@ public sealed class GradeRepository : IGradeRepository
         return Task.FromResult(true);
     }
 
-    public Task<bool> UpdateAsync(int idOfGradeToUpdate, Grade newGrade)
+    public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade newGrade)
     {
         var foundItem = FindItemById(idOfGradeToUpdate);
         if (foundItem == null)
