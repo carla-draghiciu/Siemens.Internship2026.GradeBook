@@ -10,4 +10,9 @@ public class Grade
     {
         Value = value;
     }
+
+    public bool IsPassing()
+    {
+        return Value >= 5;
+    }
 }
