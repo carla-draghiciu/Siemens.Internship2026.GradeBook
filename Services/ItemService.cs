@@ -5,8 +5,17 @@ namespace Siemens.Internship2026.GradeBook.Services
 {
     public class ItemService : IItemService
     {
-        public object ComputeStatistics(List<Item> items)
+        private readonly IItemRepository _itemRepository;
+
+        public ItemService(IItemRepository itemRepository)
         {
+            _itemRepository = itemRepository;
+        }
+
+        public async Task<object> ComputeStatistics()
+        {
+            var items = (await this._itemRepository.GetAllAsync()).ToList();
+
             return new
             {
                 TotalCount = items.Count,
