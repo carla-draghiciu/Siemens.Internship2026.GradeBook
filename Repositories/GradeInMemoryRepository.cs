@@ -1,3 +1,4 @@
+using Siemens.Internship2026.GradeBook.Constants;
 using Siemens.Internship2026.GradeBook.Interfaces;
 using Siemens.Internship2026.GradeBook.Models;
 
@@ -6,7 +7,7 @@ namespace Siemens.Internship2026.GradeBook.Repositories;
 public sealed class GradeInMemoryRepository : IGradeRepository
 {
     private readonly List<Grade> _grades = new();
-    private int _nextGradeId = 1;
+    private int _nextGradeId = GradeConstants.firstAvailableGradeId;
 
     public GradeInMemoryRepository()
     {

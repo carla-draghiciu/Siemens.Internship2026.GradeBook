@@ -1,14 +1,15 @@
-﻿using Siemens.Internship2026.GradeBook.Interfaces;
+﻿using Siemens.Internship2026.GradeBook.Constants;
+using Siemens.Internship2026.GradeBook.Interfaces;
 using Siemens.Internship2026.GradeBook.Models;
 
 namespace Siemens.Internship2026.GradeBook.Repositories
 {
     public class GradeAPIRepository : IGradeRepository
     {
-        private const string SeedDataUrl = "https://gist.githubusercontent.com/ArdeleanTudor/8ea407832cd9794960e0e6bbd1319f6e/raw/145b121103dd1";
+        private const string SeedDataUrl = SeedData.url;
 
         private readonly List<Grade> _grades = new();
-        private int _nextGradeId = 1;
+        private int _nextGradeId = GradeConstants.firstAvailableGradeId;
 
         private static readonly HttpClient _httpClient = new();
 
@@ -32,13 +33,13 @@ namespace Siemens.Internship2026.GradeBook.Repositories
 
                 foreach (var grade in seedGrades)
                 {
-                    if (grade.Id <= 0)
+                    if (grade.Id <= GradeConstants.invalidGradeIdMargin)
                     {
                         grade.Id = _nextGradeId++;
                     }
                     else if (grade.Id >= _nextGradeId)
                     {
-                        _nextGradeId = grade.Id + 1;
+                        _nextGradeId = grade.Id + GradeConstants.gradeIdStep;
                     }
 
                     _grades.Add(grade);
