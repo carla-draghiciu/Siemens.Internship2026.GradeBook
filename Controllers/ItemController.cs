@@ -8,10 +8,12 @@ namespace Siemens.Internship2026.GradeBook.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly IItemReader _reader;
+    private readonly IItemService _itemService;
 
-    public ItemController(IItemReader reader)
+    public ItemController(IItemReader reader, IItemService itemService)
     {
         _reader = reader;
+        _itemService = itemService;
     }
 
     [HttpGet]
@@ -22,20 +24,14 @@ public class ItemController : ControllerBase
         var items = await _reader.GetAllAsync();
         var itemList = items.ToList();
 
-        var totalCount = itemList.Count;
-        var averageValue = itemList.Any() ? itemList.Average(i => i.Value) : 0;
+        var statistics = _itemService.ComputeStatistics(itemList);
 
-        Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");
+        //Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");
 
         return Ok(new
         {
             Data = itemList,
-            Statistics = new
-            {
-                TotalCount = totalCount,
-                AverageValue = averageValue,
-                RetrievedAt = DateTime.UtcNow
-            }
+            Statistics = statistics
         });
     }
 
