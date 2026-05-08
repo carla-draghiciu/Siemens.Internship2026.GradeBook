@@ -3,23 +3,23 @@ using Siemens.Internship2026.GradeBook.Models;
 
 namespace Siemens.Internship2026.GradeBook.Services
 {
-    public class ItemService : IItemService
+    public class StatisticsService : IStatisticsService
     {
-        private readonly IItemRepository _itemRepository;
+        private readonly IItemReader _itemReader;
 
-        public ItemService(IItemRepository itemRepository)
+        public StatisticsService(IItemReader itemReader)
         {
-            _itemRepository = itemRepository;
+            _itemReader = itemReader;
         }
 
         public async Task<List<Item>> GetAllAsList()
         {
-            return (await this._itemRepository.GetAllAsync()).ToList();
+            return (await this._itemReader.GetAllAsync()).ToList();
         }
 
         public async Task<Item?> GetById(int id)
         {
-            return await _itemRepository.GetByIdAsync(id);
+            return await _itemReader.GetByIdAsync(id);
         }
 
         public async Task<object> ComputeStatistics()

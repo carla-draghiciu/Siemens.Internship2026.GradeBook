@@ -7,12 +7,12 @@ namespace Siemens.Internship2026.GradeBook.Controllers;
 [Route("api/[controller]")]
 public class ItemController : ControllerBase
 {
-    private readonly IItemService _itemService;
+    private readonly IStatisticsService _statisticsService;
     private readonly ILoggerService _loggerService;
 
-    public ItemController(IItemService itemService, ILoggerService loggerService)
+    public ItemController(IStatisticsService itemService, ILoggerService loggerService)
     {
-        _itemService = itemService;
+        _statisticsService = itemService;
         _loggerService = loggerService;
     }
 
@@ -21,8 +21,8 @@ public class ItemController : ControllerBase
     {
         _loggerService.Log("GET api/item called");
 
-        var itemList = await _itemService.GetAllAsList();
-        var statistics = await _itemService.ComputeStatistics();
+        var itemList = await _statisticsService.GetAllAsList();
+        var statistics = await _statisticsService.ComputeStatistics();
 
         //Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");
 
@@ -44,7 +44,7 @@ public class ItemController : ControllerBase
             return BadRequest("Id must be a positive integer.");
         }
 
-        var item = await _itemService.GetById(id);
+        var item = await _statisticsService.GetById(id);
         if (item == null)
         {
             _loggerService.Log($"Item {id} not found");

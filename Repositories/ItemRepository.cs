@@ -3,7 +3,7 @@ using Siemens.Internship2026.GradeBook.Models;
 
 namespace Siemens.Internship2026.GradeBook.Repositories;
 
-public class ItemRepository : IItemRepository
+public class ItemRepository : IItemWriter
 {
     protected readonly List<Item> _items = new();
     protected int _nextId = 1;
