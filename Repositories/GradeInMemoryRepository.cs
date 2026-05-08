@@ -3,12 +3,12 @@ using Siemens.Internship2026.GradeBook.Models;
 
 namespace Siemens.Internship2026.GradeBook.Repositories;
 
-public sealed class GradeRepository : IGradeRepository
+public sealed class GradeInMemoryRepository : IGradeRepository
 {
     private readonly List<Grade> _grades = new();
     private int _nextGradeId = 1;
 
-    public GradeRepository()
+    public GradeInMemoryRepository()
     {
         var i1 = new Grade(10);
         var i2 = new Grade(20);
