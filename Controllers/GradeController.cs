@@ -21,7 +21,7 @@ public class GradeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        _loggerService.Log("GET api/item called");
+        _loggerService.Log("GET api/grade called");
 
         var gradesList = await _gradeService.GetAllGradesAsList();
         var statistics = await _gradeStatisticsService.ComputeGradeStatistics();
@@ -38,7 +38,7 @@ public class GradeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        _loggerService.Log($"GET api/item/{id} called");
+        _loggerService.Log($"GET api/grade/{id} called");
 
         if (id <= 0)
         {
