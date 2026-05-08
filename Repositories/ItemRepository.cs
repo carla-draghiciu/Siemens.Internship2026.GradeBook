@@ -19,4 +19,33 @@ public class ItemRepository : IItemRepository
         var items = _items.Where(i => i.IsActive).AsEnumerable();
         return Task.FromResult(items);
     }
+
+    public Task AddAsync(Item item)
+    {
+        item.Id = _nextId++;
+        _items.Add(item);
+        return Task.CompletedTask;
+    }
+
+    private Item? FindItemById(int id)
+    {
+        return _items.FirstOrDefault(i => i.Id == id);
+    }
+
+    public Task<bool> DeleteAsync(int id)
+    {
+        var item = FindItemById(id);
+        if (item == null) return Task.FromResult(false);
+        _items.Remove(item);
+        return Task.FromResult(true);
+    }
+
+    public Task<bool> UpdateAsync(int id, Item item)
+    {
+        var foundItem = FindItemById(id);
+        if (foundItem == null) return Task.FromResult(false);
+
+        foundItem.Value = item.Value;
+        return Task.FromResult(true);
+    }
 }
