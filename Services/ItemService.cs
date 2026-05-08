@@ -12,9 +12,19 @@ namespace Siemens.Internship2026.GradeBook.Services
             _itemRepository = itemRepository;
         }
 
+        public async Task<List<Item>> GetAllAsList()
+        {
+            return (await this._itemRepository.GetAllAsync()).ToList();
+        }
+
+        public async Task<Item?> GetById(int id)
+        {
+            return await _itemRepository.GetByIdAsync(id);
+        }
+
         public async Task<object> ComputeStatistics()
         {
-            var items = (await this._itemRepository.GetAllAsync()).ToList();
+            var items = await this.GetAllAsList();
 
             return new
             {

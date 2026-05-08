@@ -4,6 +4,8 @@ namespace Siemens.Internship2026.GradeBook.Interfaces
 {
     public interface IItemService
     {
+        Task<List<Item>> GetAllAsList();
+        Task<Item?> GetById(int id);
         Task<object> ComputeStatistics();
     }
 }
