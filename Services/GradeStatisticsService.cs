@@ -5,31 +5,31 @@ namespace Siemens.Internship2026.GradeBook.Services
 {
     public class GradeStatisticsService : IGradeStatisticsService
     {
-        private readonly IGradeReader _itemReader;
+        private readonly IGradeReader _gradeReader;
 
-        public GradeStatisticsService(IGradeReader itemReader)
+        public GradeStatisticsService(IGradeReader gradeReader)
         {
-            _itemReader = itemReader;
+            _gradeReader = gradeReader;
         }
 
         public async Task<List<Grade>> GetAllAsList()
         {
-            return (await this._itemReader.GetAllAsync()).ToList();
+            return (await this._gradeReader.GetAllAsync()).ToList();
         }
 
-        public async Task<Grade?> GetById(int id)
+        public async Task<Grade?> GetById(int searchedGradeId)
         {
-            return await _itemReader.GetByIdAsync(id);
+            return await _gradeReader.GetByIdAsync(searchedGradeId);
         }
 
         public async Task<object> ComputeStatistics()
         {
-            var items = await this.GetAllAsList();
+            var allGrades = await this.GetAllAsList();
 
             return new
             {
-                TotalCount = items.Count,
-                AverageValue = items.Any() ? items.Average(i => i.Value) : 0,
+                TotalCount = allGrades.Count,
+                AverageValue = allGrades.Any() ? allGrades.Average(grade => grade.Value) : 0,
                 RetrievedAt = DateTime.UtcNow
             };
         }

@@ -7,12 +7,12 @@ namespace Siemens.Internship2026.GradeBook.Controllers;
 [Route("api/[controller]")]
 public class GradeController : ControllerBase
 {
-    private readonly IGradeStatisticsService _statisticsService;
+    private readonly IGradeStatisticsService _gradeStatisticsService;
     private readonly ILoggerService _loggerService;
 
-    public GradeController(IGradeStatisticsService itemService, ILoggerService loggerService)
+    public GradeController(IGradeStatisticsService gradeStatisticsService, ILoggerService loggerService)
     {
-        _statisticsService = itemService;
+        _gradeStatisticsService = gradeStatisticsService;
         _loggerService = loggerService;
     }
 
@@ -21,14 +21,14 @@ public class GradeController : ControllerBase
     {
         _loggerService.Log("GET api/item called");
 
-        var itemList = await _statisticsService.GetAllAsList();
-        var statistics = await _statisticsService.ComputeStatistics();
+        var gradesList = await _gradeStatisticsService.GetAllAsList();
+        var statistics = await _gradeStatisticsService.ComputeStatistics();
 
         //Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");
 
         return Ok(new
         {
-            Data = itemList,
+            Data = gradesList,
             Statistics = statistics
         });
     }
@@ -44,13 +44,13 @@ public class GradeController : ControllerBase
             return BadRequest("Id must be a positive integer.");
         }
 
-        var item = await _statisticsService.GetById(id);
-        if (item == null)
+        var returnedGrade = await _gradeStatisticsService.GetById(id);
+        if (returnedGrade == null)
         {
             _loggerService.Log($"Item {id} not found");
             return NotFound($"Item with Id {id} was not found.");
         }
 
-        return Ok(item);
+        return Ok(returnedGrade);
     }
 }

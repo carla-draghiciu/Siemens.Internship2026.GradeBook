@@ -4,9 +4,9 @@ namespace Siemens.Internship2026.GradeBook.Services
 {
     public class ConsoleLoggerService : ILoggerService
     {
-        public void Log(string message) 
+        public void Log(string messageToLog) 
         {
-            Console.WriteLine($"[LOG] {DateTime.UtcNow}: {message}");
+            Console.WriteLine($"[LOG] {DateTime.UtcNow}: {messageToLog}");
         }
     }
 }
