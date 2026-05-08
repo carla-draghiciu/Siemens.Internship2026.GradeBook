@@ -4,8 +4,8 @@ namespace Siemens.Internship2026.GradeBook.Interfaces
 {
     public interface IGradeWriter
     {
-        Task AddAsync(Grade item);
-        Task<bool> DeleteAsync(int id);
-        Task<bool> UpdateAsync(int id, Grade item);
+        Task AddAsync(Grade gradeToBeAdded);
+        Task<bool> DeleteAsync(int idOfGradeToDelete);
+        Task<bool> UpdateAsync(int idOfGradeToUpdate, Grade newGrade);
     }
 }

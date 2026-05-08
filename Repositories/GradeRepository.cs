@@ -5,8 +5,8 @@ namespace Siemens.Internship2026.GradeBook.Repositories;
 
 public sealed class GradeRepository : IGradeRepository
 {
-    private readonly List<Grade> _items = new();
-    private int _nextId = 1;
+    private readonly List<Grade> _grades = new();
+    private int _nextGradeId = 1;
 
     public GradeRepository()
     {
@@ -17,44 +17,51 @@ public sealed class GradeRepository : IGradeRepository
         AddAsync(i2);
     }
 
-    public Task<Grade?> GetByIdAsync(int id)
+    public Task<Grade?> GetByIdAsync(int searchedGradeId)
     {
-        var item = _items.FirstOrDefault(i => i.Id == id && i.IsActive);
-        return Task.FromResult(item);
+        var foundGrade = _grades.FirstOrDefault(grade => grade.Id == searchedGradeId && grade.IsActive);
+        return Task.FromResult(foundGrade);
     }
 
     public Task<IEnumerable<Grade>> GetAllAsync()
     {
-        var items = _items.Where(i => i.IsActive).AsEnumerable();
-        return Task.FromResult(items);
+        var allActiveGrades = _grades.Where(grade => grade.IsActive).AsEnumerable();
+        return Task.FromResult(allActiveGrades);
     }
 
-    public Task AddAsync(Grade item)
+    public Task AddAsync(Grade gradeToBeAdded)
     {
-        item.Id = _nextId++;
-        _items.Add(item);
+        gradeToBeAdded.Id = _nextGradeId++;
+        _grades.Add(gradeToBeAdded);
         return Task.CompletedTask;
     }
 
-    private Grade? FindItemById(int id)
+    private Grade? FindItemById(int searchedId)
     {
-        return _items.FirstOrDefault(i => i.Id == id);
+        return _grades.FirstOrDefault(grade => grade.Id == searchedId);
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public Task<bool> DeleteAsync(int idOfGradeToDelete)
     {
-        var item = FindItemById(id);
-        if (item == null) return Task.FromResult(false);
-        _items.Remove(item);
+        var foundGrade = FindItemById(idOfGradeToDelete);
+        if (foundGrade == null)
+        {
+            return Task.FromResult(false);
+        }
+
+        _grades.Remove(foundGrade);
         return Task.FromResult(true);
     }
 
-    public Task<bool> UpdateAsync(int id, Grade item)
+    public Task<bool> UpdateAsync(int idOfGradeToUpdate, Grade newGrade)
     {
-        var foundItem = FindItemById(id);
-        if (foundItem == null) return Task.FromResult(false);
+        var foundItem = FindItemById(idOfGradeToUpdate);
+        if (foundItem == null)
+        {
+            return Task.FromResult(false);
+        }
 
-        foundItem.Value = item.Value;
+        foundItem.Value = newGrade.Value;
         return Task.FromResult(true);
     }
 }

@@ -4,6 +4,6 @@ namespace Siemens.Internship2026.GradeBook.Interfaces;
 
 public interface IGradeReader
 {
-    Task<Grade?> GetByIdAsync(int id);
+    Task<Grade?> GetByIdAsync(int searchedGradeId);
     Task<IEnumerable<Grade>> GetAllAsync();
 }
