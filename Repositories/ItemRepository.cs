@@ -8,6 +8,15 @@ public sealed class ItemRepository : IItemRepository
     private readonly List<Item> _items = new();
     private int _nextId = 1;
 
+    public ItemRepository()
+    {
+        var i1 = new Item(10);
+        var i2 = new Item(20);
+
+        AddAsync(i1);
+        AddAsync(i2);
+    }
+
     public Task<Item?> GetByIdAsync(int id)
     {
         var item = _items.FirstOrDefault(i => i.Id == id && i.IsActive);
