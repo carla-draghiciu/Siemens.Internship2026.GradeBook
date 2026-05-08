@@ -6,5 +6,6 @@ namespace Siemens.Internship2026.GradeBook.Interfaces
     {
         Task<List<Grade>> GetAllGradesAsList();
         Task<Grade?> GetGradeById(int searchedGradeId);
+        Task<List<Grade>> GetFirstNPassingActiveGrades(int n);
     }
 }

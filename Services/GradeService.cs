@@ -21,5 +21,20 @@ namespace Siemens.Internship2026.GradeBook.Services
         {
             return await this._gradeRepository.GetGradeByIdAsync(searchedGradeId);
         }
+
+        public async Task<List<Grade>> GetFirstNPassingActiveGrades(int n)
+        {
+            if (n <= 0)
+            {
+                throw new ArgumentException("N must be a positive integer.");
+            }
+
+            var allGrades = await _gradeRepository.GetAllGradesAsync();
+
+            return allGrades
+                .Where(grade => grade.IsActive && grade.IsPassing())
+                .Take(n)
+                .ToList();
+        }
     }
 }
