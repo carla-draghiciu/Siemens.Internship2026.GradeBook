@@ -55,4 +55,19 @@ public class GradeController : ControllerBase
 
         return Ok(returnedGrade);
     }
+
+    [HttpGet("passing/top/{n}")]
+    public async Task<IActionResult> GetFirstNPassingGrades(int n)
+    {
+        _loggerService.Log($"GET api/grade/passing/top/{n} called");
+
+        if (n <= 0)
+        {
+            _loggerService.Log($"Invalid n: {n}");
+            return BadRequest("N must be a positive integer.");
+        }
+
+        var firstNGrades = await _gradeService.GetFirstNPassingActiveGrades(n);
+        return Ok(firstNGrades);
+    }
 }
