@@ -13,6 +13,8 @@ namespace Siemens.Internship2026.GradeBook.Repositories
 
         private static readonly HttpClient _httpClient = new();
 
+        private sealed record GradesEnvelope(List<Grade> Items);
+
         public GradeAPIRepository()
         {
             InitializeFromRemoteAsync().GetAwaiter().GetResult();
@@ -22,9 +24,11 @@ namespace Siemens.Internship2026.GradeBook.Repositories
         {
             try
             {
-                var seedGrades = await _httpClient
-                    .GetFromJsonAsync<List<Grade>>(SeedDataUrl)
+                var envelope = await _httpClient
+                    .GetFromJsonAsync<GradesEnvelope>(SeedDataUrl)
                     .ConfigureAwait(false);
+
+                var seedGrades = envelope?.Items;
 
                 if (seedGrades is null || seedGrades.Count == 0)
                 {
