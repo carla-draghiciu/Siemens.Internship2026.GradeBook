@@ -6,11 +6,6 @@ public class Grade
     public decimal Value { get; set; }
     public bool IsActive { get; set; } = true;
 
-    public Grade(decimal value)
-    {
-        Value = value;
-    }
-
     public bool IsPassing()
     {
         return Value >= 5;

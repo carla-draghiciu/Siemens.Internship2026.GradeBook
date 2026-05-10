@@ -9,15 +9,6 @@ public sealed class GradeInMemoryRepository : IGradeRepository
     private readonly List<Grade> _grades = new();
     private int _nextGradeId = GradeConstants.firstAvailableGradeId;
 
-    public GradeInMemoryRepository()
-    {
-        var i1 = new Grade(10);
-        var i2 = new Grade(20);
-
-        AddGradeAsync(i1);
-        AddGradeAsync(i2);
-    }
-
     public Task<Grade?> GetGradeByIdAsync(int searchedGradeId)
     {
         var foundGrade = _grades.FirstOrDefault(grade => grade.Id == searchedGradeId && grade.IsActive);
