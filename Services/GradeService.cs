@@ -22,6 +22,8 @@ namespace Siemens.Internship2026.GradeBook.Services
             return await this._gradeRepository.GetGradeByIdAsync(searchedGradeId);
         }
 
+        // if I used a database repository, I would compute the filtering in the repository,
+        // to not bring into memory the entire list of grades.
         public async Task<List<Grade>> GetFirstNPassingActiveGradesAsync(int n)
         {
             if (n <= 0)
