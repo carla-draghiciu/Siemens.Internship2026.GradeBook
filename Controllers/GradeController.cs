@@ -21,7 +21,7 @@ public class GradeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        _loggerService.Log("GET api/grade called");
+        _loggerService.LogInfo("GET api/grade called");
 
         var gradesList = await _gradeService.GetAllActiveGradesAsListAsync();
         var statistics = await _gradeStatisticsService.ComputeGradeStatistics();
@@ -36,18 +36,18 @@ public class GradeController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        _loggerService.Log($"GET api/grade/{id} called");
+        _loggerService.LogInfo($"GET api/grade/{id} called");
 
         if (id <= 0)
         {
-            _loggerService.Log($"Invalid id: {id}");
+            _loggerService.LogInfo($"Invalid id: {id}");
             return BadRequest("Id must be a positive integer.");
         }
 
         var returnedGrade = await _gradeService.GetGradeByIdAsync(id);
         if (returnedGrade == null)
         {
-            _loggerService.Log($"Item {id} not found");
+            _loggerService.LogInfo($"Item {id} not found");
             return NotFound($"Item with Id {id} was not found.");
         }
 
@@ -57,11 +57,11 @@ public class GradeController : ControllerBase
     [HttpGet("passing/top/{n}")]
     public async Task<IActionResult> GetFirstNPassingGrades(int n)
     {
-        _loggerService.Log($"GET api/grade/passing/top/{n} called");
+        _loggerService.LogInfo($"GET api/grade/passing/top/{n} called");
 
         if (n <= 0)
         {
-            _loggerService.Log($"Invalid n: {n}");
+            _loggerService.LogInfo($"Invalid n: {n}");
             return BadRequest("N must be a positive integer.");
         }
 
