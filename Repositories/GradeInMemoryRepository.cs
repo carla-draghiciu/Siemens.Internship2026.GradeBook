@@ -42,6 +42,7 @@ public sealed class GradeInMemoryRepository : IGradeRepository
         }
 
         foundGrade.Value = updatedGrade.Value;
+        foundGrade.IsActive = updatedGrade.IsActive;
         return Task.FromResult(true);
     }
 
