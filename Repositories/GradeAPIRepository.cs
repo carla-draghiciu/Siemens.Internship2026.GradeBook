@@ -74,14 +74,14 @@ namespace Siemens.Internship2026.GradeBook.Repositories
             return Task.CompletedTask;
         }
 
-        private Grade? FindItemById(int searchedId)
+        private Grade? FindGradeById(int searchedId)
         {
             return _grades.FirstOrDefault(grade => grade.Id == searchedId);
         }
 
         public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade updatedGrade)
         {
-            var foundItem = FindItemById(idOfGradeToUpdate);
+            var foundItem = FindGradeById(idOfGradeToUpdate);
             if (foundItem == null)
             {
                 return Task.FromResult(false);
@@ -94,7 +94,7 @@ namespace Siemens.Internship2026.GradeBook.Repositories
 
         public Task<bool> DeleteGradeAsync(int idOfGradeToDelete)
         {
-            var foundGrade = FindItemById(idOfGradeToDelete);
+            var foundGrade = FindGradeById(idOfGradeToDelete);
             if (foundGrade == null)
             {
                 return Task.FromResult(false);
