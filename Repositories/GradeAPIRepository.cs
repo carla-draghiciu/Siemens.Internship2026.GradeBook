@@ -79,6 +79,19 @@ namespace Siemens.Internship2026.GradeBook.Repositories
             return _grades.FirstOrDefault(grade => grade.Id == searchedId);
         }
 
+        public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade updatedGrade)
+        {
+            var foundItem = FindItemById(idOfGradeToUpdate);
+            if (foundItem == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            foundItem.Value = updatedGrade.Value;
+            foundItem.IsActive = updatedGrade.IsActive;
+            return Task.FromResult(true);
+        }
+
         public Task<bool> DeleteGradeAsync(int idOfGradeToDelete)
         {
             var foundGrade = FindItemById(idOfGradeToDelete);
@@ -88,18 +101,6 @@ namespace Siemens.Internship2026.GradeBook.Repositories
             }
 
             _grades.Remove(foundGrade);
-            return Task.FromResult(true);
-        }
-
-        public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade newGrade)
-        {
-            var foundItem = FindItemById(idOfGradeToUpdate);
-            if (foundItem == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            foundItem.Value = newGrade.Value;
             return Task.FromResult(true);
         }
     }

@@ -24,7 +24,7 @@ public class GradeController : ControllerBase
         _loggerService.LogInfo("GET api/grade called");
 
         var gradesList = await _gradeService.GetAllActiveGradesAsListAsync();
-        var statistics = await _gradeStatisticsService.ComputeGradeStatistics();
+        var statistics = await _gradeStatisticsService.ComputeGradeStatisticsAsync();
 
         return Ok(new
         {
