@@ -4,8 +4,8 @@ namespace Siemens.Internship2026.GradeBook.Interfaces
 {
     public interface IGradeService
     {
-        Task<List<Grade>> GetAllActiveGradesAsList();
-        Task<Grade?> GetGradeById(int searchedGradeId);
-        Task<List<Grade>> GetFirstNPassingActiveGrades(int n);
+        Task<List<Grade>> GetAllActiveGradesAsListAsync();
+        Task<Grade?> GetGradeByIdAsync(int searchedGradeId);
+        Task<List<Grade>> GetFirstNPassingActiveGradesAsync(int n);
     }
 }

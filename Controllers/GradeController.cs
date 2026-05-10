@@ -23,10 +23,8 @@ public class GradeController : ControllerBase
     {
         _loggerService.Log("GET api/grade called");
 
-        var gradesList = await _gradeService.GetAllActiveGradesAsList();
+        var gradesList = await _gradeService.GetAllActiveGradesAsListAsync();
         var statistics = await _gradeStatisticsService.ComputeGradeStatistics();
-
-        //Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");
 
         return Ok(new
         {
@@ -46,7 +44,7 @@ public class GradeController : ControllerBase
             return BadRequest("Id must be a positive integer.");
         }
 
-        var returnedGrade = await _gradeService.GetGradeById(id);
+        var returnedGrade = await _gradeService.GetGradeByIdAsync(id);
         if (returnedGrade == null)
         {
             _loggerService.Log($"Item {id} not found");
@@ -67,7 +65,7 @@ public class GradeController : ControllerBase
             return BadRequest("N must be a positive integer.");
         }
 
-        var firstNGrades = await _gradeService.GetFirstNPassingActiveGrades(n);
+        var firstNGrades = await _gradeService.GetFirstNPassingActiveGradesAsync(n);
         return Ok(firstNGrades);
     }
 }
