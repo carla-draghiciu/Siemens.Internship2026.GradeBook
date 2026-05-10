@@ -23,7 +23,7 @@ public class GradeController : ControllerBase
     {
         _loggerService.Log("GET api/grade called");
 
-        var gradesList = await _gradeService.GetAllGradesAsList();
+        var gradesList = await _gradeService.GetAllActiveGradesAsList();
         var statistics = await _gradeStatisticsService.ComputeGradeStatistics();
 
         //Console.WriteLine($"[LOG] Returning {totalCount} items, average value: {averageValue}");

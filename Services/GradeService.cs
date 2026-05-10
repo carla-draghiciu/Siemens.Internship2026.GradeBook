@@ -12,7 +12,7 @@ namespace Siemens.Internship2026.GradeBook.Services
             this._gradeRepository = gradeRepository;
         }
 
-        public async Task<List<Grade>> GetAllGradesAsList()
+        public async Task<List<Grade>> GetAllActiveGradesAsList()
         {
             return (await this._gradeRepository.GetAllGradesAsync()).ToList();
         }
