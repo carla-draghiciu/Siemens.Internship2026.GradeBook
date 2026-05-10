@@ -33,6 +33,18 @@ public sealed class GradeInMemoryRepository : IGradeRepository
         return _grades.FirstOrDefault(grade => grade.Id == searchedId);
     }
 
+    public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade updatedGrade)
+    {
+        var foundGrade = FindGradeById(idOfGradeToUpdate);
+        if (foundGrade == null)
+        {
+            return Task.FromResult(false);
+        }
+
+        foundGrade.Value = updatedGrade.Value;
+        return Task.FromResult(true);
+    }
+
     public Task<bool> DeleteGradeAsync(int idOfGradeToDelete)
     {
         var foundGrade = FindGradeById(idOfGradeToDelete);
@@ -42,18 +54,6 @@ public sealed class GradeInMemoryRepository : IGradeRepository
         }
 
         _grades.Remove(foundGrade);
-        return Task.FromResult(true);
-    }
-
-    public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade newGrade)
-    {
-        var foundItem = FindGradeById(idOfGradeToUpdate);
-        if (foundItem == null)
-        {
-            return Task.FromResult(false);
-        }
-
-        foundItem.Value = newGrade.Value;
         return Task.FromResult(true);
     }
 }

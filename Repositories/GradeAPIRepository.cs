@@ -81,14 +81,14 @@ namespace Siemens.Internship2026.GradeBook.Repositories
 
         public Task<bool> UpdateGradeAsync(int idOfGradeToUpdate, Grade updatedGrade)
         {
-            var foundItem = FindGradeById(idOfGradeToUpdate);
-            if (foundItem == null)
+            var foundGrade = FindGradeById(idOfGradeToUpdate);
+            if (foundGrade == null)
             {
                 return Task.FromResult(false);
             }
 
-            foundItem.Value = updatedGrade.Value;
-            foundItem.IsActive = updatedGrade.IsActive;
+            foundGrade.Value = updatedGrade.Value;
+            foundGrade.IsActive = updatedGrade.IsActive;
             return Task.FromResult(true);
         }
 
