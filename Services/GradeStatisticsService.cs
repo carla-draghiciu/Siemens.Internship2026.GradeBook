@@ -14,7 +14,7 @@ namespace Siemens.Internship2026.GradeBook.Services
 
         public async Task<object> ComputeGradeStatistics()
         {
-            var allGrades = (await this._gradeReader.GetAllGradesAsync()).ToList();
+            var allGrades = (await this._gradeReader.GetAllActiveGradesAsync()).ToList();
 
             return new
             {

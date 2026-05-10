@@ -14,7 +14,7 @@ namespace Siemens.Internship2026.GradeBook.Services
 
         public async Task<List<Grade>> GetAllActiveGradesAsList()
         {
-            return (await this._gradeRepository.GetAllGradesAsync()).ToList();
+            return (await this._gradeRepository.GetAllActiveGradesAsync()).ToList();
         }
 
         public async Task<Grade?> GetGradeById(int searchedGradeId)
@@ -29,7 +29,7 @@ namespace Siemens.Internship2026.GradeBook.Services
                 throw new ArgumentException("N must be a positive integer.");
             }
 
-            var allGrades = await _gradeRepository.GetAllGradesAsync();
+            var allGrades = await _gradeRepository.GetAllActiveGradesAsync();
 
             return allGrades
                 .Where(grade => grade.IsActive && grade.IsPassing())

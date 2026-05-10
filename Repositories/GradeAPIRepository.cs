@@ -61,7 +61,7 @@ namespace Siemens.Internship2026.GradeBook.Repositories
             return Task.FromResult(foundGrade);
         }
 
-        public Task<IEnumerable<Grade>> GetAllGradesAsync()
+        public Task<IEnumerable<Grade>> GetAllActiveGradesAsync()
         {
             var allActiveGrades = _grades.Where(grade => grade.IsActive).AsEnumerable();
             return Task.FromResult(allActiveGrades);
