@@ -40,14 +40,14 @@ public class GradeController : ControllerBase
 
         if (id <= 0)
         {
-            _loggerService.LogInfo($"Invalid id: {id}");
+            _loggerService.LogError($"Invalid id: {id}");
             return BadRequest("Id must be a positive integer.");
         }
 
         var returnedGrade = await _gradeService.GetGradeByIdAsync(id);
         if (returnedGrade == null)
         {
-            _loggerService.LogInfo($"Item {id} not found");
+            _loggerService.LogError($"Item {id} not found");
             return NotFound($"Item with Id {id} was not found.");
         }
 
@@ -61,7 +61,7 @@ public class GradeController : ControllerBase
 
         if (n <= 0)
         {
-            _loggerService.LogInfo($"Invalid n: {n}");
+            _loggerService.LogError($"Invalid n: {n}");
             return BadRequest("N must be a positive integer.");
         }
 
