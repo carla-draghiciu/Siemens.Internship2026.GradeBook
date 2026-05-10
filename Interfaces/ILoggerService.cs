@@ -3,5 +3,6 @@
     public interface ILoggerService
     {
         void LogInfo(string messageToLog);
+        void LogError(string errorMessageToLog);
     }
 }

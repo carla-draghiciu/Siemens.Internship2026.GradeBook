@@ -8,5 +8,10 @@ namespace Siemens.Internship2026.GradeBook.Services
         {
             Console.WriteLine($"[LOG] {DateTime.UtcNow}: {messageToLog}");
         }
+
+        public void LogError(string errorMessageToLog)
+        {
+            Console.WriteLine($"[ERROR] {DateTime.UtcNow}: {errorMessageToLog}");
+        }
     }
 }
